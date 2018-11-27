@@ -8,6 +8,9 @@ public class Bigram {
     public File source;
     public String contentString = "";
     public HashMap<String, HashMap<String, Integer>> contentMap = new HashMap<>();
+    public int totalWords;
+    public int totalSmoothening;
+    public int size;
 
     public Bigram(String fileName) {
         this.source = new File(fileName);
@@ -18,7 +21,6 @@ public class Bigram {
             reader = new Scanner(this.source);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
-            System.out.println("File reading error.");
         }
 
         // Read file
