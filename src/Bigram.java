@@ -30,21 +30,27 @@ public class Bigram {
                 contentString += " ";
             }
         }
-
-        countWords();
+        String[] words = this.contentString.replaceAll("[^a-zA-Z ]", "").toLowerCase().split(" ");
+        smooth(words);
+        countWords(words);
     }
 
-    private void countWords() {
-        String[] words = this.contentString.replaceAll("[^a-zA-Z ]", "").toLowerCase().split(" ");
-        for (int i = 0; i < words.length - 1; ++i) {
-            if (this.contentMap.get(words[i]) == null) {
-                HashMap<String, Integer> temper = new HashMap<>();
-                temper.put(words[i + 1], 1);
-                this.contentMap.put(words[i], temper);
-            } else {
-                Integer n = this.contentMap.get(words[i]).get(words[i + 1]);
-                this.contentMap.get(words[i]).put(words[i + 1], (n == null) ? 1 : ++n);
+    // Adds 1 smoothing to every value
+    private void smooth(String[] words) {
+        for (int i = 0; i < words.length; ++i) {
+            HashMap<String, Integer> temp = new HashMap<>();
+            for (int j = 0; j < words.length; ++j) {
+                temp.put(words[j], 1);
             }
+            this.contentMap.put(words[i], temp);
+        }
+    }
+
+    // Get word counts
+    private void countWords(String[] words) {
+        for (int i = 0; i < words.length - 1; ++i) {
+            Integer n = this.contentMap.get(words[i]).get(words[i + 1]);
+            this.contentMap.get(words[i]).put(words[i + 1], (n == null) ? 1 : ++n);
         }
     }
 

@@ -4,18 +4,23 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // Get file names
+        // Scanner setup
         Scanner input = new Scanner(System.in);
 
+        // English
         System.out.print("Enter training file name for English: ");
         String engFile = input.nextLine();
         Unigram engUni = new Unigram("texts/" + engFile);
         Bigram engBi = new Bigram("texts/" + engFile);
         engBi.printMap();
 
-//        System.out.print("Enter training file name for French: ");
-//        Unigram frUni = new Unigram(input.nextLine());
+        // French
+        System.out.print("Enter training file name for French: ");
+        String frFile = input.nextLine();
+        Unigram frUni = new Unigram("texts/" + frFile);
+        Bigram frBi = new Bigram("texts/" + frFile);
+        frBi.printMap();
 
-        // Need to find a third language
+        // Need to find a third language to do
     }
 }
