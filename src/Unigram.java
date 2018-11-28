@@ -10,6 +10,8 @@ public class Unigram {
     public String contentString = "";
     public Map<String, Integer> contentMap = new HashMap<>();
     public int size;
+    public int uniqueWords;
+    public final double SMOOTH = 0.5;
 
     public Unigram(String fileName) {
         this.source = new File(fileName);
@@ -40,6 +42,9 @@ public class Unigram {
         this.size = words.length;
         for (String w : words) {
             Integer n = this.contentMap.get(w);
+            if (n == null) {
+                this.uniqueWords++;
+            }
             this.contentMap.put(w, (n == null) ? 1 : ++n);
         }
     }
@@ -65,11 +70,11 @@ public class Unigram {
         // Not sure if this counts as smoothing, as size is not increased.
         // Seems to perform pretty well though...
         if (this.contentMap.get(word) == null) {
-            return Math.log10((double)1 / this.size);
+            return Math.log10(SMOOTH / (this.size + SMOOTH * this.uniqueWords));
         }
 
         // Otherwise, calculate it
-        double probability = (double)this.contentMap.get(word) / this.size;
+        double probability = (this.contentMap.get(word) + SMOOTH) / (this.size + SMOOTH * this.uniqueWords);
         return Math.log10(probability);
     }
 }
