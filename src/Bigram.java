@@ -12,6 +12,9 @@ public class Bigram {
     public int uniques;
     public final double SMOOTH = 0.5;
     private int type;
+    public String outputString = "";
+    public String[] sentenceArray;
+    public double result;
 
     public Bigram(String fileName, int type) {
         this.source = new File(fileName);
@@ -95,7 +98,9 @@ public class Bigram {
         return charsProbability(sentence);
     }
 
+    @SuppressWarnings("Duplicates")
     private double wordsProbability(String sentence) {
+        String uses = "";
         String[] temp = sentence.replaceAll("[^a-zA-Z ]", "").toLowerCase().split(" ");
         double probability = 0;
 
@@ -104,16 +109,27 @@ public class Bigram {
             String previous = (i == 0 ? "." : temp[i - 1]);
 
             if (this.contentMap.get(word) == null || this.contentMap.get(word).get(previous) == null) {
-                probability += Math.log10(SMOOTH / (this.size + uniques * uniques * SMOOTH));
+                double probs = Math.log10(SMOOTH / (this.size + uniques * uniques * SMOOTH));
+                probability += probs;
+                this.outputString +=  "P(" + word + "|" + previous + ") = " + probs + "==> log prob of sentence so far: " + probability + "+";
+                uses += previous + word + "+";
             } else {
                 int count = this.contentMap.get(word).get(previous);
-                probability += Math.log10((count + SMOOTH) / (this.size + uniques * uniques * SMOOTH));
+                double probs = Math.log10((count + SMOOTH) / (this.size + uniques * uniques * SMOOTH));
+                probability += probs;
+                this.outputString +=  "P(" + word + "|" + previous + ") = " + probs + "==> log prob of sentence so far: " + probability + "+";
+                uses += previous + word + "+";
             }
         }
+
+        this.sentenceArray = uses.split("\\+");
+        this.result = probability;
         return probability;
     }
 
+    @SuppressWarnings("Duplicates")
     private double charsProbability(String sentence) {
+        String uses = "";
         String[] temp = sentence.replaceAll("[^a-zA-Z ]", "").toLowerCase().split(" ");
         double probability = 0;
 
@@ -123,13 +139,22 @@ public class Bigram {
                 String previous = (j == 0 ? "." : w.charAt(j - 1) + "");
 
                 if (this.contentMap.get(character) == null || this.contentMap.get(character).get(previous) == null) {
-                    probability += Math.log10(SMOOTH / (this.size + uniques * uniques * SMOOTH));
+                    double probs = Math.log10(SMOOTH / (this.size + uniques * uniques * SMOOTH));
+                    probability += probs;
+                    this.outputString +=  "P(" + character + "|" + previous + ") = " + probs + "==> log prob of sentence so far: " + probability + "+";
+                    uses += previous + character + "+";
                 } else {
                     int count = this.contentMap.get(character).get(previous);
-                    probability += Math.log10((count + SMOOTH) / (this.size + uniques * uniques * SMOOTH));
+                    double probs = Math.log10((count + SMOOTH) / (this.size + uniques * uniques * SMOOTH));
+                    probability += probs;
+                    this.outputString +=  "P(" + character + "|" + previous + ") = " + probs + "==> log prob of sentence so far: " + probability + "+";
+                    uses += previous + character + "+";
                 }
             }
         }
+
+        this.sentenceArray = uses.split("\\+");
+        this.result = probability;
         return probability;
     }
 }

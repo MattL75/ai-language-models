@@ -13,6 +13,9 @@ public class Unigram {
     public int uniques;
     public final double SMOOTH = 0.5;
     private int type;
+    public String outputString = "";
+    public String[] sentenceArray;
+    public double result;
 
     // Type 0 == words, type 1 == characters
     public Unigram(String fileName, int type) {
@@ -77,21 +80,30 @@ public class Unigram {
     }
 
     public double sentenceProbability(String sentence) {
+        String uses = "";
         String[] temp = sentence.replaceAll("[^a-zA-Z ]", "").toLowerCase().split(" ");
         double probability = 0;
 
         if (type == 0) {
             for (String unit : temp) {
-                probability += probability(unit);
+                double probs = probability(unit);
+                probability += probs;
+                this.outputString += "P(" + unit + ") = " + probs + " ==> log prob of sentence so far: " + probability + "+";
+                uses += unit + "+";
             }
         } else {
             for (String unit : temp) {
                 for (int i = 0; i < unit.length(); ++i) {
-                    probability += probability(unit.charAt(i) + "");
+                    double probs = probability(unit.charAt(i) + "");
+                    probability += probs;
+                    this.outputString += "P(" + unit.charAt(i) + ") = " + probs + " ==> log prob of sentence so far: " + probability + "+";
+                    uses += unit.charAt(i) + "+";
                 }
             }
         }
 
+        this.sentenceArray = uses.split("\\+");
+        this.result = probability;
         return probability;
     }
 
