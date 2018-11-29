@@ -4,11 +4,6 @@ import java.util.Scanner;
 
 public class Main {
 
-    /*
-    NEED TO CHANGE UNIGRAM AND BIGRAM
-    CURRENTLY ONLY DOES WORDS, BUT TEACHER WANTS CHARACTERS
-     */
-
     public static void main(String[] args) {
 
         // Scanner setup
@@ -18,16 +13,16 @@ public class Main {
         System.out.print("Enter training file name for English: ");
        // String engFile = input.nextLine();
         String engFile = "en-moby-dick.txt";
-        Unigram engUni = new Unigram("texts/" + engFile);
-        Bigram engBi = new Bigram("texts/" + engFile);
+        Unigram engUni = new Unigram("texts/" + engFile, 1);
+        Bigram engBi = new Bigram("texts/" + engFile, 1);
         //engBi.printMap();
 
         // French
         System.out.print("Enter training file name for French: ");
         //String frFile = input.nextLine();
         String frFile = "fr-vingt-mille-lieues-sous-les-mers.txt";
-        Unigram frUni = new Unigram("texts/" + frFile);
-        Bigram frBi = new Bigram("texts/" + frFile);
+        Unigram frUni = new Unigram("texts/" + frFile, 1);
+        Bigram frBi = new Bigram("texts/" + frFile, 1);
        // frBi.printMap();
 
         // Need to find a third language to do
@@ -43,11 +38,8 @@ public class Main {
 
         while (reader.hasNext()) {
             String line = reader.nextLine();
-
-            // To test unigram, replace 'engBi' with 'engUni' etc
-            // To test bigram, replace 'engUni' with 'engBi' etc
-            double eng = engBi.sentenceProbability(line);
-            double fr = frBi.sentenceProbability(line);
+            double eng = engUni.sentenceProbability(line);
+            double fr = frUni.sentenceProbability(line);
 
             if (eng > fr) {
                 System.out.println("The system has found that the sentence: \n\t" + line + "\nis from the ENGLISH Language.\nEN: " + eng + "\nFR: " + fr + "\n");

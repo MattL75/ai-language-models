@@ -10,11 +10,14 @@ public class Unigram {
     public String contentString = "";
     public Map<String, Integer> contentMap = new HashMap<>();
     public int size;
-    public int uniqueWords;
+    public int uniques;
     public final double SMOOTH = 0.5;
+    private int type;
 
-    public Unigram(String fileName) {
+    // Type 0 == words, type 1 == characters
+    public Unigram(String fileName, int type) {
         this.source = new File(fileName);
+        this.type = type;
 
         // Setup file scanner
         Scanner reader = new Scanner(fileName);
@@ -34,7 +37,27 @@ public class Unigram {
             }
         }
 
-        countWords();
+        if (type == 0) {
+            countWords();
+        } else {
+            countChars();
+        }
+    }
+
+    private void countChars() {
+        String[] words = this.contentString.replaceAll("[^a-zA-Z ]", "").toLowerCase().split(" ");
+        this.size = 0;
+        for (String w : words) {
+            for (int i = 0; i < w.length(); ++i) {
+                String character = w.charAt(i) + "";
+                Integer n = this.contentMap.get(character);
+                if (n == null) {
+                    ++this.uniques;
+                }
+                this.contentMap.put(character, (n == null) ? 1 : ++n);
+                ++this.size;
+            }
+        }
     }
 
     private void countWords() {
@@ -43,7 +66,7 @@ public class Unigram {
         for (String w : words) {
             Integer n = this.contentMap.get(w);
             if (n == null) {
-                this.uniqueWords++;
+                this.uniques++;
             }
             this.contentMap.put(w, (n == null) ? 1 : ++n);
         }
@@ -57,24 +80,28 @@ public class Unigram {
         String[] temp = sentence.replaceAll("[^a-zA-Z ]", "").toLowerCase().split(" ");
         double probability = 0;
 
-        for (String word : temp) {
-            probability += wordProbability(word);
+        if (type == 0) {
+            for (String unit : temp) {
+                probability += probability(unit);
+            }
+        } else {
+            for (String unit : temp) {
+                for (int i = 0; i < unit.length(); ++i) {
+                    probability += probability(unit.charAt(i) + "");
+                }
+            }
         }
 
         return probability;
     }
 
-    public double wordProbability(String word) {
+    public double probability(String unit) {
 
-        // Assume probability 1 if word is not present
-        // Not sure if this counts as smoothing, as size is not increased.
-        // Seems to perform pretty well though...
-        if (this.contentMap.get(word) == null) {
-            return Math.log10(SMOOTH / (this.size + SMOOTH * this.uniqueWords));
+        if (this.contentMap.get(unit) == null) {
+            return Math.log10(SMOOTH / (this.size + SMOOTH * this.uniques));
         }
 
         // Otherwise, calculate it
-        double probability = (this.contentMap.get(word) + SMOOTH) / (this.size + SMOOTH * this.uniqueWords);
-        return Math.log10(probability);
+        return Math.log10(this.contentMap.get(unit) + SMOOTH) / (this.size + SMOOTH * this.uniques);
     }
 }

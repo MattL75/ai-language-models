@@ -8,18 +8,14 @@ public class Bigram {
     public File source;
     public String contentString = "";
     public HashMap<String, HashMap<String, Integer>> contentMap = new HashMap<>();
-    public HashMap<String, Integer> unigram = new HashMap<>();
     public int size;
-    public int uniqueWords;
+    public int uniques;
     public final double SMOOTH = 0.5;
+    private int type;
 
-    /*
-    Maybe we need to consider periods. Currently, they are removed, but they might add some precision.
-    To be determined.
-     */
-
-    public Bigram(String fileName) {
+    public Bigram(String fileName, int type) {
         this.source = new File(fileName);
+        this.type = type;
 
         // Setup file scanner
         Scanner reader = new Scanner(fileName);
@@ -38,21 +34,53 @@ public class Bigram {
                 contentString += " ";
             }
         }
-        String[] words = this.contentString.replaceAll("[^a-zA-Z ]", "").toLowerCase().split(" ");
-        this.size = words.length;
-        countWords(words);
+
+        if (type == 0) {
+            countWords();
+        } else {
+            countChars();
+        }
     }
 
-    // Get word counts
-    private void countWords(String[] words) {
-        for (int i = 0; i < words.length - 1; ++i) {
-            if (this.contentMap.get(words[i]) == null) {
-                this.contentMap.put(words[i], new HashMap<>());
-                this.uniqueWords++;
+    private void countWords() {
+        String[] words = this.contentString.replaceAll("[^a-zA-Z ]", "").toLowerCase().split(" ");
+
+        // Iterate through the words
+        for (int i = 0; i < words.length; ++i) {
+            String word = words[i];
+            String previous = (i == 0 ? "." : words[i - 1] + "");
+
+            // TODO Maybe we need to consider '.' as a unit
+            // Currently only adding it to second level, nothing else done
+
+            if (this.contentMap.get(word) == null) {
+                this.contentMap.put(word, new HashMap<>());
+                this.uniques++;
             }
-            Integer n = this.contentMap.get(words[i]).get(words[i + 1]);
-            this.contentMap.get(words[i]).put(words[i + 1], (n == null) ? 1 : ++n);
-            this.unigram.put(words[i], (n == null) ? 1 : ++n);
+            Integer n = this.contentMap.get(word).get(previous);
+            this.contentMap.get(word).put(previous, (n == null) ? 1 : ++n);
+        }
+    }
+
+    private void countChars() {
+        String[] words = this.contentString.replaceAll("[^a-zA-Z ]", "").toLowerCase().split(" ");
+
+        // Iterate through the words
+        for (String w : words) {
+            for (int i = 0; i < w.length(); ++i) {
+                String character = w.charAt(i) + "";
+                String previous = (i == 0 ? "." : w.charAt(i - 1) + "");
+
+                // TODO Maybe we need to consider '.' as a unit
+                // Currently only adding it to second level, nothing else done
+
+                if (this.contentMap.get(character) == null) {
+                    this.contentMap.put(character, new HashMap<>());
+                    this.uniques++;
+                }
+                Integer n = this.contentMap.get(character).get(previous);
+                this.contentMap.get(character).put(previous, (n == null) ? 1 : ++n);
+            }
         }
     }
 
@@ -61,32 +89,47 @@ public class Bigram {
     }
 
     public double sentenceProbability(String sentence) {
+        if (this.type == 0) {
+            return wordsProbability(sentence);
+        }
+        return charsProbability(sentence);
+    }
+
+    private double wordsProbability(String sentence) {
         String[] temp = sentence.replaceAll("[^a-zA-Z ]", "").toLowerCase().split(" ");
         double probability = 0;
 
-        // TODO Case for first word... This is where periods would be useful.
         for (int i = 0; i < temp.length; ++i) {
-            if (i == 0 || this.contentMap.get(temp[i - 1]) == null || this.contentMap.get(temp[i - 1]).get(temp[i]) == null) {
+            String word = temp[i];
+            String previous = (i == 0 ? "." : temp[i - 1]);
 
-                // MAYBE WRONG
-                probability += Math.log10(SMOOTH / (uniqueWords * SMOOTH));
+            if (this.contentMap.get(word) == null || this.contentMap.get(word).get(previous) == null) {
+                probability += Math.log10(SMOOTH / (this.size + uniques * uniques * SMOOTH));
             } else {
-                int count = this.contentMap.get(temp[i - 1]).get(temp[i]);
-                probability += Math.log10((count + SMOOTH) / (unigramProbability(temp[i - 1]) + uniqueWords * SMOOTH));
+                int count = this.contentMap.get(word).get(previous);
+                probability += Math.log10((count + SMOOTH) / (this.size + uniques * uniques * SMOOTH));
             }
         }
-
         return probability;
     }
 
-    public double unigramProbability(String word) {
+    private double charsProbability(String sentence) {
+        String[] temp = sentence.replaceAll("[^a-zA-Z ]", "").toLowerCase().split(" ");
+        double probability = 0;
 
-        if (this.unigram.get(word) == null) {
-            return Math.log10((double)1 / this.size);
+        for (String w : temp) {
+            for (int j = 0; j < w.length(); ++j) {
+                String character = w.charAt(j) + "";
+                String previous = (j == 0 ? "." : w.charAt(j - 1) + "");
+
+                if (this.contentMap.get(character) == null || this.contentMap.get(character).get(previous) == null) {
+                    probability += Math.log10(SMOOTH / (this.size + uniques * uniques * SMOOTH));
+                } else {
+                    int count = this.contentMap.get(character).get(previous);
+                    probability += Math.log10((count + SMOOTH) / (this.size + uniques * uniques * SMOOTH));
+                }
+            }
         }
-
-        // Otherwise, calculate it
-        double probability = (double)this.unigram.get(word) / this.size;
-        return Math.log10(probability);
+        return probability;
     }
 }
