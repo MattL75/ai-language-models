@@ -6,27 +6,33 @@ public class OutputWriter {
     public String sentence;
     public Unigram frUni;
     public Unigram engUni;
+    public Unigram poUni;
     public Bigram frBi;
     public Bigram engBi;
+    public Bigram poBi;
 
     public OutputWriter() {}
 
-    public OutputWriter(String sentence, String fileName, Unigram frUni, Bigram frBi, Unigram engUni, Bigram engBi) {
+    public OutputWriter(String sentence, String fileName, Unigram frUni, Bigram frBi, Unigram engUni, Bigram engBi, Unigram poUni, Bigram poBi) {
         this.fileName = fileName;
         this.sentence = sentence;
         this.engBi = engBi;
         this.engUni = engUni;
         this.frBi = frBi;
         this.frUni = frUni;
+        this.poUni = poUni;
+        this.poBi = poBi;
     }
 
     public void write() {
 
         String[] engUniString = this.engUni.outputString.split("\\+");
         String[] frUniString = this.frUni.outputString.split("\\+");
+        String[] poUniString = this.poUni.outputString.split("\\+");
 
         String[] engBiString = this.engBi.outputString.split("\\+");
         String[] frBiString = this.frBi.outputString.split("\\+");
+        String[] poBiString = this.poBi.outputString.split("\\+");
 
         try {
             PrintWriter writer = new PrintWriter("logs/" + fileName);
@@ -39,7 +45,8 @@ public class OutputWriter {
                 cumulation += ("UNIGRAM: " + this.engUni.sentenceArray[i] + "\n");
 
                 cumulation += ("ENGLISH: " + engUniString[i] + "\n");
-                cumulation += ("FRENCH: " + frUniString[i] + "\n\n");
+                cumulation += ("FRENCH: " + frUniString[i] + "\n");
+                cumulation += ("PORTUGUESE: " + poUniString[i] + "\n\n");
             }
 
             // Uni result
@@ -52,7 +59,8 @@ public class OutputWriter {
                 cumulation += ("BIGRAM: " + this.engBi.sentenceArray[i] + "\n");
 
                 cumulation += ("ENGLISH: " + engBiString[i] + "\n");
-                cumulation += ("FRENCH: " + frBiString[i] + "\n\n");
+                cumulation += ("FRENCH: " + frBiString[i] + "\n");
+                cumulation += ("PORTUGUESE: " + poBiString[i] + "\n\n");
             }
 
             // Bi result
@@ -65,18 +73,23 @@ public class OutputWriter {
         }
     }
 
+    @SuppressWarnings("Duplicates")
     private String getResultString(int gram) {
         if (gram == 1) {
-            if (engUni.result > frUni.result) {
+            if (engUni.result > frUni.result && engUni.result > poUni.result) {
                 return "English";
-            } else {
+            } else if (frUni.result > engUni.result && frUni.result > poUni.result) {
                 return "French";
+            } else {
+                return "Portuguese";
             }
         } else {
-            if (engBi.result > frBi.result) {
+            if (engBi.result > frBi.result && engBi.result > poBi.result) {
                 return "English";
-            } else {
+            } else if (frBi.result > engBi.result && frBi.result > poBi.result) {
                 return "French";
+            } else {
+                return "Portuguese";
             }
         }
     }

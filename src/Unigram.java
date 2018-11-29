@@ -114,6 +114,6 @@ public class Unigram {
         }
 
         // Otherwise, calculate it
-        return Math.log10(this.contentMap.get(unit) + SMOOTH) / (this.size + SMOOTH * this.uniques);
+        return Math.log10((this.contentMap.get(unit) + SMOOTH) / (this.size + SMOOTH * this.uniques));
     }
 }

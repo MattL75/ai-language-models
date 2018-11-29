@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class Main {
@@ -18,7 +17,6 @@ public class Main {
         String engFile = "en-moby-dick.txt";
         Unigram engUni = new Unigram("texts/" + engFile, TYPE);
         Bigram engBi = new Bigram("texts/" + engFile, TYPE);
-        //engBi.printMap();
 
         // French
         System.out.print("Enter training file name for French: ");
@@ -26,9 +24,13 @@ public class Main {
         String frFile = "fr-vingt-mille-lieues-sous-les-mers.txt";
         Unigram frUni = new Unigram("texts/" + frFile, TYPE);
         Bigram frBi = new Bigram("texts/" + frFile, TYPE);
-       // frBi.printMap();
 
-        // Need to find a third language to do
+        // Portuguese
+        System.out.print("Enter training file name for Portuguese: ");
+        //String poFile = input.nextLine();
+        String poFile = "po-emma.txt";
+        Unigram poUni = new Unigram("texts/" + poFile, TYPE);
+        Bigram poBi = new Bigram("texts/" + poFile, TYPE);
 
         System.out.print("Enter file to be tested: ");
         String fileName = input.nextLine();
@@ -44,6 +46,8 @@ public class Main {
         writer.frUni = frUni;
         writer.engBi = engBi;
         writer.frBi = frBi;
+        writer.poUni = poUni;
+        writer.poBi = poBi;
 
         int counter = 1;
         while (reader.hasNext()) {
@@ -51,14 +55,16 @@ public class Main {
 
             double engUniProb = engUni.sentenceProbability(line);
             double frUniProb = frUni.sentenceProbability(line);
+            double poUniProb = poUni.sentenceProbability(line);
 
             double engBiProb = engBi.sentenceProbability(line);
             double frBiProb = frBi.sentenceProbability(line);
+            double poBiProb = poBi.sentenceProbability(line);
 
             // Console printing
             System.out.println(line);
-            System.out.println("Unigram: " + (engUniProb > frUniProb ? "ENGLISH" : "FRENCH"));
-            System.out.println("Bigram: " + (engBiProb > frBiProb ? "ENGLISH" : "FRENCH"));
+            System.out.println("Unigram: " + getResultString(engUniProb, frUniProb, poUniProb));
+            System.out.println("Bigram: " + getResultString(engBiProb, frBiProb, poBiProb));
             System.out.println();
 
             // Code to print to file
@@ -67,6 +73,16 @@ public class Main {
             writer.write();
 
             ++counter;
+        }
+    }
+
+    private static String getResultString(double eng, double fr, double po) {
+        if (eng > fr && eng > po) {
+            return "ENGLISH";
+        } else if (fr > eng && fr > po) {
+            return "FRENCH";
+        } else {
+            return "PORTUGUESE";
         }
     }
 }
