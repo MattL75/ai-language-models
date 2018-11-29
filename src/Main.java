@@ -13,27 +13,25 @@ public class Main {
 
         // English
         System.out.print("Enter training file name for English: ");
-       // String engFile = input.nextLine();
-        String engFile = "en-moby-dick.txt";
+        String engFile = input.nextLine();
         Unigram engUni = new Unigram("texts/" + engFile, TYPE);
         Bigram engBi = new Bigram("texts/" + engFile, TYPE);
 
         // French
         System.out.print("Enter training file name for French: ");
-        //String frFile = input.nextLine();
-        String frFile = "fr-vingt-mille-lieues-sous-les-mers.txt";
+        String frFile = input.nextLine();
         Unigram frUni = new Unigram("texts/" + frFile, TYPE);
         Bigram frBi = new Bigram("texts/" + frFile, TYPE);
 
         // Portuguese
         System.out.print("Enter training file name for Portuguese: ");
-        //String poFile = input.nextLine();
-        String poFile = "po-emma.txt";
+        String poFile = input.nextLine();
         Unigram poUni = new Unigram("texts/" + poFile, TYPE);
         Bigram poBi = new Bigram("texts/" + poFile, TYPE);
 
         System.out.print("Enter file to be tested: ");
         String fileName = input.nextLine();
+        System.out.println();
         Scanner reader = new Scanner(fileName);
         try {
             reader = new Scanner(new File("texts/" + fileName));
