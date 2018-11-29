@@ -1,0 +1,120 @@
+Enter training file name for English: Enter training file name for French: Enter training file name for Portuguese: Enter file to be tested: sentences.txt
+What will the Japanese economy be like next year?
+Unigram: ENGLISH
+Bigram: ENGLISH
+
+She asked him if he was a student at this school.
+Unigram: ENGLISH
+Bigram: ENGLISH
+
+I'm OK.
+Unigram: ENGLISH
+Bigram: ENGLISH
+
+Birds build nests.
+Unigram: FRENCH
+Bigram: ENGLISH
+
+I hate AI.
+Unigram: ENGLISH
+Bigram: ENGLISH
+
+L'oiseau vole.
+Unigram: FRENCH
+Bigram: FRENCH
+
+Woody Allen parle.
+Unigram: ENGLISH
+Bigram: ENGLISH
+
+Est-ce que l'arbitre est la?
+Unigram: FRENCH
+Bigram: FRENCH
+
+Cette phrase est en anglais.
+Unigram: ENGLISH
+Bigram: ENGLISH
+
+J'aime l'IA.
+Unigram: FRENCH
+Bigram: FRENCH
+
+This sentence is in French.
+Unigram: ENGLISH
+Bigram: ENGLISH
+
+Alguem precisa parar esse homem!
+Unigram: PORTUGUESE
+Bigram: PORTUGUESE
+
+L'idiot du village a decide de manger une pomme.
+Unigram: FRENCH
+Bigram: FRENCH
+
+Au Quebec il fait pas froid il fait frette.
+Unigram: FRENCH
+Bigram: FRENCH
+
+Big Dan decided to go eat an apple.
+Unigram: ENGLISH
+Bigram: ENGLISH
+
+Nos estamos indo para o campo de batalha.
+Unigram: PORTUGUESE
+Bigram: PORTUGUESE
+
+Kevin O'Leary is known as Mister Wonderful.
+Unigram: ENGLISH
+Bigram: ENGLISH
+
+Mais il n'est pas vraiment genial.
+Unigram: FRENCH
+Bigram: FRENCH
+
+Une phrase tres drole et comique.
+Unigram: FRENCH
+Bigram: FRENCH
+
+Este e um ovo de pascoa.
+Unigram: PORTUGUESE
+Bigram: PORTUGUESE
+
+C'est un fiasco cette affaire.
+Unigram: FRENCH
+Bigram: ENGLISH
+
+Yeashin Rabbi est mon partenaire de laboratoire.
+Unigram: ENGLISH
+Bigram: ENGLISH
+
+Ela estava deprimida ultimamente.
+Unigram: FRENCH
+Bigram: PORTUGUESE
+
+Jules Vernes talks.
+Unigram: FRENCH
+Bigram: ENGLISH
+
+Esta frase esta em ingles.
+Unigram: FRENCH
+Bigram: ENGLISH
+
+John Carpenter a gagne un concours.
+Unigram: PORTUGUESE
+Bigram: ENGLISH
+
+T'es qui toi?
+Unigram: FRENCH
+Bigram: PORTUGUESE
+
+Where did Jason Bourne come from?
+Unigram: PORTUGUESE
+Bigram: ENGLISH
+
+Ele quer jogar Starcraft.
+Unigram: FRENCH
+Bigram: ENGLISH
+
+On va passer Noel en enfer.
+Unigram: FRENCH
+Bigram: PORTUGUESE
