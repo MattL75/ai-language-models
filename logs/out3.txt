@@ -1,0 +1,51 @@
+I'm OK.
+
+UNIGRAM MODEL:
+
+UNIGRAM: i
+ENGLISH: P(w) = -1.631836734384463 ==> log prob of sentence so far: -1.631836734384463
+FRENCH: P(w) = -3.9263986349613083 ==> log prob of sentence so far: -3.9263986349613083
+PORTUGUESE: P(w) = -2.927551077482986 ==> log prob of sentence so far: -2.927551077482986
+
+UNIGRAM: m
+ENGLISH: P(h) = -1.1800031703129872 ==> log prob of sentence so far: -2.8118399046974503
+FRENCH: P(h) = -2.105927193325342 ==> log prob of sentence so far: -6.03232582828665
+PORTUGUESE: P(h) = -1.7302754328300687 ==> log prob of sentence so far: -4.657826510313055
+
+UNIGRAM: o
+ENGLISH: P(a) = -1.0870002134044685 ==> log prob of sentence so far: -3.8988401181019188
+FRENCH: P(a) = -1.0763014066773167 ==> log prob of sentence so far: -7.108627234963967
+PORTUGUESE: P(a) = -0.869889310505903 ==> log prob of sentence so far: -5.527715820818958
+
+UNIGRAM: k
+ENGLISH: P(t) = -1.0341642505255382 ==> log prob of sentence so far: -4.933004368627457
+FRENCH: P(t) = -1.1658235313968857 ==> log prob of sentence so far: -8.274450766360852
+PORTUGUESE: P(t) = -1.3121327527613136 ==> log prob of sentence so far: -6.839848573580272
+
+According to the unigram model, this sentence is in English.
+
+------------------
+
+BIGRAM MODEL:
+
+BIGRAM: .i
+ENGLISH: P(w|.) = 1.620471784995175==> log prob of sentence so far: 1.620471784995175
+FRENCH: P(w|.) = -1.3675486980426799==> log prob of sentence so far: -1.3675486980426799
+PORTUGUESE: P(w|.) = 0.27419885461237226==> log prob of sentence so far: 0.27419885461237226
+
+BIGRAM: im
+ENGLISH: P(h|w) = 1.2346235963023897==> log prob of sentence so far: 2.8550953812975646
+FRENCH: P(h|w) = -2.3528254412219733==> log prob of sentence so far: -3.720374139264653
+PORTUGUESE: P(h|w) = -1.7885540107834108==> log prob of sentence so far: -1.5143551561710384
+
+BIGRAM: .o
+ENGLISH: P(a|h) = 1.5364949402151973==> log prob of sentence so far: 4.391590321512762
+FRENCH: P(a|h) = 0.6764230211538681==> log prob of sentence so far: -3.043951118110785
+PORTUGUESE: P(a|h) = 1.0007061178557886==> log prob of sentence so far: -0.5136490383152499
+
+BIGRAM: ok
+ENGLISH: P(t|a) = 1.4844472612803268==> log prob of sentence so far: 5.876037582793089
+FRENCH: P(t|a) = 0.9162981757785623==> log prob of sentence so far: -2.127652942332223
+PORTUGUESE: P(t|a) = 0.6690526676385172==> log prob of sentence so far: 0.15540362932326734
+
+According to the bigram model, this sentence is in English.

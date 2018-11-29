@@ -157,4 +157,14 @@ public class Bigram {
         this.result = probability;
         return probability;
     }
+
+    public double probability(String unit, String previous) {
+        if (this.contentMap.get(unit) == null || this.contentMap.get(unit).get(previous) == null) {
+            return Math.log10(SMOOTH / (this.size + uniques * uniques * SMOOTH));
+        }
+
+        // Otherwise, calculate it
+        int count = this.contentMap.get(unit).get(previous);
+        return Math.log10((count + SMOOTH) / (this.size + uniques * uniques * SMOOTH));
+    }
 }

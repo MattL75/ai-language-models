@@ -1,5 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.Iterator;
+import java.util.Map;
 
 public class OutputWriter {
     public String fileName;
@@ -92,6 +94,100 @@ public class OutputWriter {
                 return "Portuguese";
             }
         }
+    }
+
+    @SuppressWarnings("Duplicates")
+    public void writeModels() {
+
+        try {
+
+            // ENG Unigram
+            PrintWriter writer = new PrintWriter("models/unigramEN.txt");
+            String temp = "";
+
+            Iterator it = engUni.contentMap.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry pair = (Map.Entry)it.next();
+                temp += ("P(" + pair.getKey() + ") = " + engUni.probability(pair.getKey() + "") + "\n");
+            }
+            writer.write(temp);
+            writer.flush();
+
+            // Fr Unigram
+            writer = new PrintWriter("models/unigramFR.txt");
+            temp = "";
+
+            it = frUni.contentMap.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry pair = (Map.Entry)it.next();
+                temp += ("P(" + pair.getKey() + ") = " + frUni.probability(pair.getKey() + "") + "\n");
+            }
+            writer.write(temp);
+            writer.flush();
+
+            // Por Unigram
+            writer = new PrintWriter("models/unigramPO.txt");
+            temp = "";
+
+            it = poUni.contentMap.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry pair = (Map.Entry)it.next();
+                temp += ("P(" + pair.getKey() + ") = " + poUni.probability(pair.getKey() + "") + "\n");
+            }
+            writer.write(temp);
+            writer.flush();
+
+            // Eng Bigram
+            writer = new PrintWriter("models/bigramEN.txt");
+            temp = "";
+
+            it = engBi.contentMap.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry pair = (Map.Entry)it.next();
+                Iterator it2 = ((Map)pair.getValue()).entrySet().iterator();
+                while (it2.hasNext()) {
+                    Map.Entry pair2 = (Map.Entry)it2.next();
+                    temp += ("P(" + pair.getKey() + "|" + pair2.getKey() +") = " + engBi.probability(pair.getKey() + "", pair2.getKey() + "") + "\n");
+                }
+            }
+            writer.write(temp);
+            writer.flush();
+
+            // Fr Bigram
+            writer = new PrintWriter("models/bigramFR.txt");
+            temp = "";
+
+            it = frBi.contentMap.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry pair = (Map.Entry)it.next();
+                Iterator it2 = ((Map)pair.getValue()).entrySet().iterator();
+                while (it2.hasNext()) {
+                    Map.Entry pair2 = (Map.Entry)it2.next();
+                    temp += ("P(" + pair.getKey() + "|" + pair2.getKey() +") = " + frBi.probability(pair.getKey() + "", pair2.getKey() + "") + "\n");
+                }
+            }
+            writer.write(temp);
+            writer.flush();
+
+            // Por Bigram
+            writer = new PrintWriter("models/bigramPO.txt");
+            temp = "";
+
+            it = poBi.contentMap.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry pair = (Map.Entry)it.next();
+                Iterator it2 = ((Map)pair.getValue()).entrySet().iterator();
+                while (it2.hasNext()) {
+                    Map.Entry pair2 = (Map.Entry)it2.next();
+                    temp += ("P(" + pair.getKey() + "|" + pair2.getKey() +") = " + poBi.probability(pair.getKey() + "", pair2.getKey() + "") + "\n");
+                }
+            }
+            writer.write(temp);
+            writer.flush();
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+
     }
 
 }

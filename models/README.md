@@ -1,0 +1,1 @@
+This directory is where the models are stored when a training set is executed in the code.

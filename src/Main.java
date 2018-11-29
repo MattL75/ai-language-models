@@ -49,6 +49,9 @@ public class Main {
         writer.poUni = poUni;
         writer.poBi = poBi;
 
+        // Output models
+        writer.writeModels();
+
         int counter = 1;
         while (reader.hasNext()) {
             String line = reader.nextLine();
