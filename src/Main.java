@@ -6,6 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+        // Type 0 = words, type 1 = characters
         final int TYPE = 1;
 
         // Scanner setup
