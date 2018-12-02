@@ -29,6 +29,7 @@ public class Main {
         Unigram poUni = new Unigram("texts/" + poFile, TYPE);
         Bigram poBi = new Bigram("texts/" + poFile, TYPE);
 
+        // Get file to test
         System.out.print("Enter file to be tested: ");
         String fileName = input.nextLine();
         System.out.println();
@@ -39,6 +40,7 @@ public class Main {
             System.out.println(e.getMessage());
         }
 
+        // Logging setup
         OutputWriter writer = new OutputWriter();
         writer.engUni = engUni;
         writer.frUni = frUni;
@@ -54,10 +56,12 @@ public class Main {
         while (reader.hasNext()) {
             String line = reader.nextLine();
 
+            // Unigrams
             double engUniProb = engUni.sentenceProbability(line);
             double frUniProb = frUni.sentenceProbability(line);
             double poUniProb = poUni.sentenceProbability(line);
 
+            // Bigrams
             double engBiProb = engBi.sentenceProbability(line);
             double frBiProb = frBi.sentenceProbability(line);
             double poBiProb = poBi.sentenceProbability(line);

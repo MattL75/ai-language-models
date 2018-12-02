@@ -1,4 +1,8 @@
-Enter training file name for English: Enter training file name for French: Enter training file name for Portuguese: Enter file to be tested: sentences.txt
+Enter training file name for English: en-full.txt
+Enter training file name for French: fr-full.txt
+Enter training file name for Portuguese: po-full.txt
+Enter file to be tested: sentences.txt
+
 What will the Japanese economy be like next year?
 Unigram: ENGLISH
 Bigram: ENGLISH
@@ -20,7 +24,7 @@ Unigram: ENGLISH
 Bigram: ENGLISH
 
 L'oiseau vole.
-Unigram: FRENCH
+Unigram: PORTUGUESE
 Bigram: FRENCH
 
 Woody Allen parle.
@@ -37,7 +41,7 @@ Bigram: ENGLISH
 
 J'aime l'IA.
 Unigram: FRENCH
-Bigram: FRENCH
+Bigram: PORTUGUESE
 
 This sentence is in French.
 Unigram: ENGLISH
@@ -47,15 +51,15 @@ Alguem precisa parar esse homem!
 Unigram: PORTUGUESE
 Bigram: PORTUGUESE
 
-L'idiot du village a decide de manger une pomme.
+Vingt mille lieues est un bon livre.
 Unigram: FRENCH
 Bigram: FRENCH
 
-Au Quebec il fait pas froid il fait frette.
+Le prince francais est tres present dans la vie du peuple.
 Unigram: FRENCH
 Bigram: FRENCH
 
-Big Dan decided to go eat an apple.
+Big Dan decided to go eat an apple with his girlfriend Small Jane.
 Unigram: ENGLISH
 Bigram: ENGLISH
 
@@ -67,7 +71,7 @@ Kevin O'Leary is known as Mister Wonderful.
 Unigram: ENGLISH
 Bigram: ENGLISH
 
-Mais il n'est pas vraiment genial.
+Un homme tres serieux.
 Unigram: FRENCH
 Bigram: FRENCH
 
@@ -81,7 +85,7 @@ Bigram: PORTUGUESE
 
 C'est un fiasco cette affaire.
 Unigram: FRENCH
-Bigram: ENGLISH
+Bigram: PORTUGUESE
 
 Yeashin Rabbi est mon partenaire de laboratoire.
 Unigram: ENGLISH
@@ -97,23 +101,23 @@ Bigram: ENGLISH
 
 Esta frase esta em ingles.
 Unigram: FRENCH
-Bigram: ENGLISH
+Bigram: PORTUGUESE
 
 John Carpenter a gagne un concours.
 Unigram: PORTUGUESE
-Bigram: ENGLISH
+Bigram: PORTUGUESE
 
 T'es qui toi?
 Unigram: FRENCH
 Bigram: PORTUGUESE
 
-Where did Jason Bourne come from?
+I'd love for Andre Desjardins to come.
 Unigram: PORTUGUESE
 Bigram: ENGLISH
 
 Ele quer jogar Starcraft.
 Unigram: FRENCH
-Bigram: ENGLISH
+Bigram: PORTUGUESE
 
 On va passer Noel en enfer.
 Unigram: FRENCH

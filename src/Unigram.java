@@ -81,6 +81,7 @@ public class Unigram {
 
     public double sentenceProbability(String sentence) {
         String uses = "";
+        this.outputString = "";
         String[] temp = sentence.replaceAll("[^a-zA-Z ]", "").toLowerCase().split(" ");
         double probability = 0;
 

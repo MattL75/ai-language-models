@@ -12,17 +12,23 @@ Below is a list of all the training files available in the `/texts` directory.
 
 ### English Texts
 
+`en-full.txt` Contains both texts below.
+
 `en-moby-dick.txt`
 
 `en-the-little-prince.txt`
 
 ### French Texts
 
+`fr-full.txt` Contains both texts below.
+
 `fr-le-petit-prince.txt`
 
 `fr-vingt-mille-lieues-sous-les-mers.txt`
 
 ### Portuguese Texts
+
+`po-full.txt` Contains both texts below.
 
 `po-emma.txt`
 

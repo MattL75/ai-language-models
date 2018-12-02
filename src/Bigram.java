@@ -101,6 +101,7 @@ public class Bigram {
     @SuppressWarnings("Duplicates")
     private double wordsProbability(String sentence) {
         String uses = "";
+        this.outputString = "";
         String[] temp = sentence.replaceAll("[^a-zA-Z ]", "").toLowerCase().split(" ");
         double probability = 0;
 
@@ -130,6 +131,7 @@ public class Bigram {
     @SuppressWarnings("Duplicates")
     private double charsProbability(String sentence) {
         String uses = "";
+        this.outputString = "";
         String[] temp = sentence.replaceAll("[^a-zA-Z ]", "").toLowerCase().split(" ");
         double probability = 0;
 
